@@ -1,12 +1,12 @@
 <?php
 
-namespace dominus77\sweetalert2\assets;
+namespace davidxu\sweetalert2\assets;
 
 use yii\web\AssetBundle;
 
 /**
  * Class ExampleAsset
- * @package dominus77\sweetalert2\assets
+ * @package namespace davidxu\sweetalert2\assets
  */
 class ExampleAsset extends AssetBundle
 {

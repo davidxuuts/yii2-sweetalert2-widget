@@ -1,20 +1,19 @@
 <?php
 
-namespace dominus77\sweetalert2\assets;
+namespace davidxu\sweetalert2\assets;
 
 use yii\web\AssetBundle;
 
 /**
  * Class AnimateCssAsset
- * @package dominus77\sweetalert2\assets
- * @see https://github.com/daneden/animate.css
+ * @package davidxu\sweetalert2\assets
  */
 class AnimateCssAsset extends AssetBundle
 {
     /**
      * @var string
      */
-    public $sourcePath = '@vendor/daneden/animate.css';
+    public $sourcePath = '@npm/animate/animate.css';
 
     /**
      * @var array

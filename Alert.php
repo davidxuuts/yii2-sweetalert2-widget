@@ -1,18 +1,18 @@
 <?php
 
-namespace dominus77\sweetalert2;
+namespace davidxu\sweetalert2;
 
 use Yii;
-use yii\bootstrap\Widget;
+use yii\bootstrap4\Widget;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
-use dominus77\sweetalert2\assets\SweetAlert2Asset;
-use dominus77\sweetalert2\assets\AnimateCssAsset;
+use davidxu\sweetalert2\assets\SweetAlert2Asset;
+use davidxu\sweetalert2\assets\AnimateCssAsset;
 
 /**
  * Alert widget renders a message from session flash or custom messages.
  * @see https://sweetalert2.github.io/
- * @package dominus77\sweetalert2
+ * @package davidxu\sweetalert2
  */
 class Alert extends Widget
 {
@@ -160,7 +160,6 @@ class Alert extends Widget
 
     /**
      * Add support Animate.css
-     * @see https://daneden.github.io/animate.css/
      */
     public function registerAnimateCss()
     {

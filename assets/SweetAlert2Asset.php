@@ -1,12 +1,12 @@
 <?php
 
-namespace dominus77\sweetalert2\assets;
+namespace davidxu\sweetalert2\assets;
 
 use yii\web\AssetBundle;
 
 /**
  * Class SweetAlert2Asset
- * @package dominus77\sweetalert2\assets
+ * @package davidxu\sweetalert2\assets;
  */
 class SweetAlert2Asset extends AssetBundle
 {

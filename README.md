@@ -1,11 +1,11 @@
 # yii2-sweetalert2-widget
 
-[![Latest Version](https://poser.pugx.org/dominus77/yii2-sweetalert2-widget/v/stable)](https://packagist.org/packages/dominus77/yii2-sweetalert2-widget)
-[![Software License](https://poser.pugx.org/dominus77/yii2-sweetalert2-widget/license)](https://github.com/Dominus77/yii2-sweetalert2-widget/blob/master/LICENSE.md)
-[![Build Status](https://travis-ci.org/Dominus77/yii2-sweetalert2-widget.svg?branch=v1.3.4)](https://travis-ci.org/Dominus77/yii2-sweetalert2-widget)
-[![codecov](https://codecov.io/gh/Dominus77/yii2-sweetalert2-widget/branch/master/graph/badge.svg)](https://codecov.io/gh/Dominus77/yii2-sweetalert2-widget)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Dominus77/yii2-sweetalert2-widget/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Dominus77/yii2-sweetalert2-widget/?branch=master)
-[![Total Downloads](https://poser.pugx.org/dominus77/yii2-sweetalert2-widget/downloads)](https://packagist.org/packages/dominus77/yii2-sweetalert2-widget)
+[![Latest Version](https://poser.pugx.org/davidxu/yii2-sweetalert2-widget/v/stable)](https://packagist.org/packages/davidxu/yii2-sweetalert2-widget)
+[![Software License](https://poser.pugx.org/davidxu/yii2-sweetalert2-widget/license)](https://github.com/davidxu/yii2-sweetalert2-widget/blob/master/LICENSE.md)
+[![Build Status](https://travis-ci.org/davidxu/yii2-sweetalert2-widget.svg?branch=v1.3.4)](https://travis-ci.org/davidxu/yii2-sweetalert2-widget)
+[![codecov](https://codecov.io/gh/davidxu/yii2-sweetalert2-widget/branch/master/graph/badge.svg)](https://codecov.io/gh/davidxu/yii2-sweetalert2-widget)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/davidxu/yii2-sweetalert2-widget/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/davidxu/yii2-sweetalert2-widget/?branch=master)
+[![Total Downloads](https://poser.pugx.org/davidxu/yii2-sweetalert2-widget/downloads)](https://packagist.org/packages/davidxu/yii2-sweetalert2-widget)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/4396a034-3d18-44dc-a2cf-e7f5d5621704/mini.png)](https://insight.sensiolabs.com/projects/4396a034-3d18-44dc-a2cf-e7f5d5621704)
 
 Renders a [SweetAlert2](https://sweetalert2.github.io/) widget for Yii2.
@@ -19,13 +19,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require dominus77/yii2-sweetalert2-widget "~1.3"
+php composer.phar require davidxu/yii2-sweetalert2-widget "^2.0"
 ```
 
 or add
 
 ```
-"dominus77/yii2-sweetalert2-widget": "~1.3"
+"davidxu/yii2-sweetalert2-widget": "^2.0"
 ```
 
 to the require section of your `composer.json` file.
@@ -37,19 +37,19 @@ Once the extension is installed, simply use it in your code by:
 
 View:
 ```
-<?= \dominus77\sweetalert2\Alert::widget(['useSessionFlash' => true]) ?>
+<?= \davidxu\sweetalert2\Alert::widget(['useSessionFlash' => true]) ?>
 ```
 
 Controller:
 ```
 <?php
- Yii::$app->session->setFlash(\dominus77\sweetalert2\Alert::TYPE_SUCCESS, 'Congratulations!');
+ Yii::$app->session->setFlash(\davidxu\sweetalert2\Alert::TYPE_SUCCESS, 'Congratulations!');
 
 ```
 also
 ```
 <?php
- Yii::$app->session->setFlash(\dominus77\sweetalert2\Alert::TYPE_SUCCESS, [
+ Yii::$app->session->setFlash(\davidxu\sweetalert2\Alert::TYPE_SUCCESS, [
     [
         'title' => 'Your title',
         'text' => 'Your message',
@@ -83,7 +83,7 @@ Yii::$app->session->setFlash('', [
 View:
 ```
 <?php
-use dominus77\sweetalert2\Alert;
+use davidxu\sweetalert2\Alert;
 ```
 
 A basic message
@@ -553,7 +553,4 @@ $ ./vendor/bin/phpunit
 Please, check the [SweetAlert2](https://sweetalert2.github.io/)
 
 ## License
-The MIT License (MIT). Please see [License File](https://github.com/Dominus77/yii2-sweetalert2-widget/blob/master/LICENSE.md) for more information.
-
-## Sensio Labs
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4396a034-3d18-44dc-a2cf-e7f5d5621704/big.png)](https://insight.sensiolabs.com/projects/4396a034-3d18-44dc-a2cf-e7f5d5621704)
+The MIT License (MIT). Please see [License File](https://github.com/davidxu/yii2-sweetalert2-widget/blob/master/LICENSE.md) for more information.
