@@ -13,7 +13,7 @@ class AnimateCssAsset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = '@npm/animate/animate.css';
+    public $sourcePath = '@npm/animate.css';
 
     /**
      * @var array
@@ -25,7 +25,7 @@ class AnimateCssAsset extends AssetBundle
      */
     public function init()
     {
-        $min = YII_ENV_DEV ? '' : '.min';
+        $min = YII_ENV_DEV ? '' : '.compact';
         $this->css[] = 'animate' . $min . '.css';
     }
 
