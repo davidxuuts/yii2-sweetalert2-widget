@@ -10,7 +10,7 @@
 
 Renders a [SweetAlert2](https://sweetalert2.github.io/) widget for Yii2.
 
-![Logo SweetAlert2](/swal2-logo.png)
+![Logo SweetAlert2](https://sweetalert2.github.io/images/SweetAlert2.png)
 
 ## Installation
 
@@ -37,27 +37,10 @@ Once the extension is installed, simply use it in your code by:
 
 View:
 ```
-<?= \davidxu\sweetalert2\Alert::widget(['useSessionFlash' => true]) ?>
+<?= \davidxu\sweetalert2\SweetAlert2::widget() ?>
 ```
 
 Controller:
-```
-<?php
- Yii::$app->session->setFlash(\davidxu\sweetalert2\Alert::TYPE_SUCCESS, 'Congratulations!');
-
-```
-also
-```
-<?php
- Yii::$app->session->setFlash(\davidxu\sweetalert2\Alert::TYPE_SUCCESS, [
-    [
-        'title' => 'Your title',
-        'text' => 'Your message',
-        'confirmButtonText' => 'Done!',
-    ]
- ]);
-```
-or
 ```
 <?php
 Yii::$app->session->setFlash('', [
@@ -70,8 +53,8 @@ Yii::$app->session->setFlash('', [
         'callback' => new \yii\web\JsExpression("
             function (result) {
                 // handle dismiss, result.dismiss can be 'cancel', 'overlay', 'close', and 'timer'
-                if (result.dismiss === 'timer') {
-                    console.log('I was closed by the timer')
+                if (result.isConfirmed) {
+                    return true;
                 }
             }
         "),
@@ -83,43 +66,12 @@ Yii::$app->session->setFlash('', [
 View:
 ```
 <?php
-use davidxu\sweetalert2\Alert;
-```
-
-A basic message
-```
-<?= Alert::widget([
-    'options' => [
-        'Any fool can use a computer'
-    ],
-]) ?>
-```
-
-A title with a text under
-```
-<?= Alert::widget([
-    'options' => [
-        'The Internet?',
-        'That thing is still around?',
-        Alert::TYPE_QUESTION
-    ]
-]) ?>
-```
-
-A success message!
-```
-<?= Alert::widget([
-    'options' => [
-        'Good job!',
-        'You clicked the button!',
-        Alert::TYPE_SUCCESS
-    ]
-]) ?>
+use davidxu\sweetalert2\SweetAlert2;
 ```
 
 A message with auto close timer
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Auto close alert!',
         'text' => 'I will close in 2 seconds.',
@@ -137,10 +89,10 @@ A message with auto close timer
 
 Custom HTML description and buttons
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => '<i>HTML</i> <u>example</u>',
-        'type' => Alert::TYPE_INFO,
+        'icon' => 'success,
         'html' => 'You can use <b>bold text</b>,'
             . '<a href="//github.com">links</a> '
             . 'and other HTML tags',
@@ -152,27 +104,13 @@ Custom HTML description and buttons
 ]) ?>
 ```
 
-jQuery HTML with custom animation [Animate.css](https://daneden.github.io/animate.css)
-
-Example:
-```
-<?= Alert::widget([
-    'options' => [
-        'title' => 'jQuery HTML example',
-        'html' => new \yii\web\JsExpression("$('<div>').addClass('some-class').text('jQuery is everywhere.')"),
-        'animation' => false,
-        'customClass' => 'animated jello', // https://daneden.github.io/animate.css/
-    ],
-]) ?>
-```
-
 A warning message, with a function attached to the "Confirm"-button...
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Are you sure?',
         'text' => "You won't be able to revert this!",
-        'type' => Alert::TYPE_WARNING,
+        'icon' =>'warning',
         'showCancelButton' => true,
         'confirmButtonColor' => '#3085d6',
         'cancelButtonColor' => '#d33',
@@ -181,7 +119,7 @@ A warning message, with a function attached to the "Confirm"-button...
     'callback' => new \yii\web\JsExpression("
         function (result) {
             if(result.value === true){
-                swal('Deleted!','Your file has been deleted.','success')
+                swal.fire('Deleted!','Your file has been deleted.','success')
             }
         }
     "),
@@ -190,11 +128,11 @@ A warning message, with a function attached to the "Confirm"-button...
 
 ... and by passing a parameter, you can execute something else for "Cancel".
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Are you sure?',
         'text' => "You won't be able to revert this!",
-        'type' => Alert::TYPE_WARNING,
+        'icon' =>'warning',
         'showCancelButton' => true,
         'confirmButtonColor' => '#3085d6',
         'cancelButtonColor' => '#d33',
@@ -207,10 +145,10 @@ A warning message, with a function attached to the "Confirm"-button...
     'callback' => new \yii\web\JsExpression("
         function (result) {
             if(result.value) {
-                swal('Deleted!','Your file has been deleted.','success')
+                Swal.fire('Deleted!','Your file has been deleted.','success')
             }            
             if (result.dismiss === 'cancel') {
-                swal(
+                Swal.fire(
                     'Cancelled',
                     'Your imaginary file is safe :)',
                     'error'
@@ -225,10 +163,10 @@ A warning message, with a function attached to the "Confirm"-button...
 
 Text:
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Input something',
-        'input' => Alert::INPUT_TYPE_TEXT,
+        'input' => 'text',
         'showCancelButton' => true,
         'inputValidator' => new \yii\web\JsExpression("
             function (value) {
@@ -245,7 +183,7 @@ Text:
     'callback' => new \yii\web\JsExpression("
         function (result) {
             if(result.value) {
-                swal({
+                Swal.fire({
                     type: 'success',
                     html: 'You entered: ' + result.value
                 })
@@ -257,14 +195,14 @@ Text:
 
 Email:
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Input email address',
-        'input' => Alert::INPUT_TYPE_EMAIL,
+        'input' => 'email',
     ],
     'callback' => new \yii\web\JsExpression("
         function (result) {
-            swal({
+            Swal.fire({
                 type: 'success',
                 html: 'Entered email: ' + result.value
             })
@@ -275,10 +213,10 @@ Email:
 
 Password:
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Enter your password',
-        'input' => Alert::INPUT_TYPE_PASSWORD,
+        'input' => 'password',
         'inputAttributes' => [
             'maxlength' => 10,
             'autocapitalize' => 'off',
@@ -288,7 +226,7 @@ Password:
     'callback' => new \yii\web\JsExpression("
         function (result) {
           if (result.value) {
-              swal({
+              Swal.fire({
                   type: 'success',
                   html: 'Entered password: ' + result.value
               })
@@ -300,15 +238,15 @@ Password:
 
 Textarea:
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
-        'input' => Alert::INPUT_TYPE_TEXTAREA,
+        'input' => 'textarea',
         'showCancelButton' => true,
     ],
     'callback' => new \yii\web\JsExpression("
         function (result) {
             if (result.value) {
-                swal(result.value)
+                Swal.fire(result.value)
             }
         }
     "),
@@ -317,25 +255,24 @@ Textarea:
 
 Select:
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
-        'title' => 'Select Russia',
-        'input' => Alert::INPUT_TYPE_SELECT,
+        'title' => 'Select Country',
+        'input' => 'select',
         'inputOptions' => [
-            'SRB' => 'Serbia',
+            'CHN' => 'China',
             'RUS' => 'Russia',
-            'UKR' => 'Ukraine',
-            'HRV' => 'Croatia',
+            'USA' => 'America',
         ],
         'inputPlaceholder' => 'Select country',
         'showCancelButton' => true,
         'inputValidator' => new \yii\web\JsExpression("
             function (value) {
                 return new Promise(function (resolve) {
-                    if (value === 'RUS') {
+                    if (value === 'CHN') {
                         resolve()
                     } else {
-                        resolve('You need to select Russia :)')
+                        resolve('You need to select CHN :)')
                     }
                 })
             }
@@ -344,7 +281,7 @@ Select:
     'callback' => new \yii\web\JsExpression("
         function (result) {
             if (result.value) {
-                swal({
+                Swal.fire({
                     type: 'success',
                     html: 'You selected: ' + result.value
                 })
@@ -371,10 +308,10 @@ $script = new \yii\web\JsExpression("
 ");
 $this->registerJs($script, \yii\web\View::POS_HEAD);
 
-echo Alert::widget([
+echo SweetAlert2::widget([
     'options' => [
         'title' => 'Select color',
-        'input' => Alert::INPUT_TYPE_RADIO,
+        'input' => 'radio',
         'inputOptions' => new \yii\web\JsExpression("inputOptions"),
         'inputValidator' => new \yii\web\JsExpression("
             function (result) {
@@ -390,7 +327,7 @@ echo Alert::widget([
     ],
     'callback' => new \yii\web\JsExpression("
         function (result) {
-            swal({
+            Swal.fire({
                 type: 'success',
                 html: 'You selected: ' + result.value
             })
@@ -401,10 +338,10 @@ echo Alert::widget([
 
 Checkbox:
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Terms and conditions',
-        'input' => Alert::INPUT_TYPE_CHECKBOX,
+        'input' => 'checkbox',
         'inputValue' => 1,
         'inputPlaceholder' => 'I agree with the terms and conditions',
         'confirmButtonText' => 'Continue <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>',
@@ -422,7 +359,7 @@ Checkbox:
     ],
     'callback' => new \yii\web\JsExpression("
         function (result) {
-            swal({
+            Swal.fire({
                 type: 'success',
                 html: 'You agreed with T&C :' + result.value
             })
@@ -433,10 +370,10 @@ Checkbox:
 
 File:
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Select image',
-        'input' => Alert::INPUT_TYPE_FILE,
+        'input' => 'file',
         'inputAttributes' => [
             'accept' => 'image/*',
             'aria-label' => 'Upload your profile picture',
@@ -446,7 +383,7 @@ File:
         function(result) {
             var reader = new FileReader
             reader.onload = function (e) {
-                swal({
+                Swal.fire({
                     title: 'Your uploaded picture',
                     imageUrl: e.target.result,
                     imageAlt: 'The uploaded picture'
@@ -460,11 +397,11 @@ File:
 
 Range:
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'How old are you?',
-        'type' => Alert::TYPE_QUESTION,
-        'input' => Alert::INPUT_TYPE_RANGE,
+        'icon' => 'question',
+        'input' => 'range',
         'inputAttributes' => [
             'min' => 8,
             'max' => 120,
@@ -478,7 +415,7 @@ Range:
 Multiple inputs aren't supported, you can achieve them by using `html` and `preConfirm` parameters.
 Inside the `preConfirm()` function you can pass the custom result to the `resolve()` function as a parameter:
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Multiple inputs',
         'html' => '<input id="swal-input1" class="swal2-input"> <input id="swal-input2" class="swal2-input">',
@@ -500,17 +437,17 @@ Inside the `preConfirm()` function you can pass the custom result to the `resolv
     ],
     'callback' => new \yii\web\JsExpression("
         function (result) {
-            swal(JSON.stringify(result.value))
+            Swal.fire(JSON.stringify(result.value))
         }
     "),
 ]) ?>
 ```
 Ajax request example
 ```
-<?= Alert::widget([
+<?= SweetAlert2::widget([
     'options' => [
         'title' => 'Submit email to run ajax request',
-        'input' => Alert::INPUT_TYPE_EMAIL,
+        'input' => 'email',
         'showCancelButton' => true,
         'confirmButtonText' => 'Submit',
         'showLoaderOnConfirm' => true,
@@ -533,7 +470,7 @@ Ajax request example
     'callback' => new \yii\web\JsExpression("
         function (result) {
             if (result.value) {
-                swal({
+                Swal.fire({
                     type: 'success',
                     title: 'Ajax request finished!',
                     html: 'Submitted email: ' + result.value
@@ -542,11 +479,6 @@ Ajax request example
         }
     "),
 ]) ?>
-```
-
-## Testing
-```
-$ ./vendor/bin/phpunit
 ```
 
 ## More Information

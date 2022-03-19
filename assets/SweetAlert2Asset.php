@@ -19,6 +19,9 @@ class SweetAlert2Asset extends AssetBundle
      * @var array
      */
     public $js = [];
+    public $css = [
+        'sweetalert2.css',
+    ];
 
     /**
      * @inheritdoc
