@@ -16,7 +16,7 @@ use yii\web\JsExpression;
  *
  * ```php
  * <section class="content">
- * <?= davidxu\sweetalter2\SweetAlter2::widget([
+ * <?php echo davidxu\sweetalter2\SweetAlter2::widget([
  *      // options => [
  *          // 'position' => 'top-end',
  *          // 'timerProgressBar' => true,
@@ -37,7 +37,6 @@ use yii\web\JsExpression;
  * @see https://sweetalert2.github.io/
  * @package davidxu\sweetalert2
  * @property array $options Custom toast options
- * @property-read array $defaultOptions Default options
  */
 class SweetAlert2 extends Widget
 {
@@ -61,19 +60,23 @@ class SweetAlert2 extends Widget
     const INPUT_TYPE_TEL = 'tel';
 
     /**
+     * @var bool If use session flash, default to true
+     */
+    public $useSessionFlash = true;
+    /**
      * @var string alert callback
      */
     public $callback = 'function() {}';
 
     /**
-     * defaultOptions for common configuration.
+     * Common configuration.
      * $toast bool Whether or not an alert should be treated as a toast notification, fefault to true
      * $position string The toast position, default to 'top-end'
      * $timerProgressBar bool Whether timer progres bar shows, default to true
      * $timer int|null Auto close timer of the popup. Set in ms (milliseconds)
-     * @var array $defaultOptions Custom configuration
+     * @var array $options Custom configuration
      */
-    private $defaultOptions = [
+    public $options = [
         'toast' => true,
         'position' => 'top-end',
         'timerProgressBar' => true,
@@ -86,8 +89,6 @@ class SweetAlert2 extends Widget
     public function init()
     {
         parent::init();
-        SweetAlert2Asset::register($this->view);
-        SweetConfirmAsset::register($this->view);
     }
 
     /**
@@ -97,13 +98,11 @@ class SweetAlert2 extends Widget
     public function initSwal(array $options, array $mixin)
     {
         $view = $this->getView();
-        $options = Json::encode($options, JSON_PRETTY_PRINT);
-        $mixin = Json::encode($mixin, JSON_PRETTY_PRINT);
-        $sweetAlert = <<<PRE
-const Toast = Swal.mixin({$mixin})
-Toast.fire({$options}).then({$this->callback})
-PRE;
-        $this->view->registerJs($sweetAlert, $view::POS_END);
+        SweetAlert2Asset::register($view);
+        SweetConfirmAsset::register($view);
+        $options = ArrayHelper::merge($options, $mixin);
+        $sweetAlert = new JsExpression('Swal.fire(' . Json::encode($options) . ')');
+        $view->registerJs($sweetAlert, $view::POS_END);
     }
 
     /**
@@ -111,13 +110,12 @@ PRE;
      */
     public function run()
     {
-        if (isset($this->options['id']))
+        if (isset($this->options['id'])) {
             unset($this->options['id']);
-        if (isset($this->defaultOptions['id']))
-            unset($this->defaultOptions['id']);
+        }
 
-        if ($session = Yii::$app->session) {
-            $this->processFlashWidget($this->processFlashSession($session));
+        if ($this->useSessionFlash) {
+            $this->processFlashWidget($this->processFlashSession(Yii::$app->session));
         } else {
             $this->initSwal($this->getOptions(), $this->getMixin());
         }
@@ -159,14 +157,7 @@ PRE;
      */
     public function getOptions()
     {
-//        if (ArrayHelper::isIndexed($this->clientOptions)) {
-//            $str = '';
-//            foreach ($this->options as $value) {
-//                $str .= '"' . $value . '",';
-//            }
-//            return chop($str, ' ,');
-//        }
-        return ArrayHelper::merge($this->options, $this->defaultOptions);
+        return $this->options;
     }
 
     /**
@@ -188,12 +179,8 @@ PRE;
     {
         $mixin = [
             'showConfirmButton' => false,
-            'didOpen' =>
-    '(toast) => {
-        toast.addEventListener(\'mouseenter\', Swal.stopTimer)
-        toast.addEventListener(\'mouseleave\', Swal.resumeTimer)
-    }',
+            'didOpen' => '(toast) => {toast.addEventListener("mouseenter", Swal.stopTimer);toast.addEventListener("mouseleave", Swal.resumeTimer);}',
         ];
-        return ArrayHelper::merge($this->options, $this->defaultOptions, $mixin);
+        return ArrayHelper::merge($this->options, $mixin);
     }
 }
