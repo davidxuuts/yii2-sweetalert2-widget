@@ -2,11 +2,7 @@
 
 [![Latest Version](https://poser.pugx.org/davidxu/yii2-sweetalert2-widget/v/stable)](https://packagist.org/packages/davidxu/yii2-sweetalert2-widget)
 [![Software License](https://poser.pugx.org/davidxu/yii2-sweetalert2-widget/license)](https://github.com/davidxu/yii2-sweetalert2-widget/blob/master/LICENSE.md)
-[![Build Status](https://travis-ci.org/davidxu/yii2-sweetalert2-widget.svg?branch=v1.3.4)](https://travis-ci.org/davidxu/yii2-sweetalert2-widget)
-[![codecov](https://codecov.io/gh/davidxu/yii2-sweetalert2-widget/branch/master/graph/badge.svg)](https://codecov.io/gh/davidxu/yii2-sweetalert2-widget)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/davidxu/yii2-sweetalert2-widget/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/davidxu/yii2-sweetalert2-widget/?branch=master)
 [![Total Downloads](https://poser.pugx.org/davidxu/yii2-sweetalert2-widget/downloads)](https://packagist.org/packages/davidxu/yii2-sweetalert2-widget)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/4396a034-3d18-44dc-a2cf-e7f5d5621704/mini.png)](https://insight.sensiolabs.com/projects/4396a034-3d18-44dc-a2cf-e7f5d5621704)
 
 Renders a [SweetAlert2](https://sweetalert2.github.io/) widget for Yii2.
 
