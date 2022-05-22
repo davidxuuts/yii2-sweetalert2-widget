@@ -14,7 +14,7 @@ class SweetConfirmAsset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = __DIR__;
+    public $sourcePath = __DIR__ . '/../';
 
     /**
      * @var array

@@ -77,10 +77,8 @@ class SweetAlert2 extends Widget
      * @var array $options Custom configuration
      */
     public $options = [
-        'toast' => true,
-        'position' => 'top-end',
-        'timerProgressBar' => true,
-        'timer' => 2000,
+        'toast' => false,
+        'position' => 'center',
     ];
 
     /**
@@ -117,7 +115,7 @@ class SweetAlert2 extends Widget
         if ($this->useSessionFlash) {
             $this->processFlashWidget($this->processFlashSession(Yii::$app->session));
         } else {
-            $this->initSwal($this->getOptions(), $this->getMixin());
+            $this->initSwal($this->getOptions());
         }
     }
 
@@ -146,7 +144,7 @@ class SweetAlert2 extends Widget
     private function processFlashWidget($options)
     {
         if ($options) {
-            $this->initSwal($this->getMixin(), $options);
+            $this->initSwal($this->getFlashMixin(), $options);
         }
     }
 
@@ -157,6 +155,14 @@ class SweetAlert2 extends Widget
      */
     public function getOptions()
     {
+        if ($this->useSessionFlash) {
+            $this->options = [
+                'toast' => true,
+                'position' => 'top-end',
+                'timerProgressBar' => true,
+                'timer' => 2000,
+            ];
+        }
         return $this->options;
     }
 
@@ -175,7 +181,7 @@ class SweetAlert2 extends Widget
         return in_array($type, $typeArray) ? $type : false;
     }
 
-    private function getMixin()
+    private function getFlashMixin()
     {
         $mixin = [
             'showConfirmButton' => false,

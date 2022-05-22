@@ -20,9 +20,7 @@ yii.confirm = function (message, ok, cancel) {
         icon: 'question',
         title: message,
     }).then((result) => {
-        console.log(result)
         if (result.isConfirmed) {
-            console.log(ok.call())
             ok.call()
         } else {
             return false
