@@ -86,6 +86,14 @@ class SweetAlert2 extends Widget
      */
     public function init()
     {
+        if ($this->useSessionFlash) {
+            $this->options = [
+                'toast' => true,
+                'position' => 'top-end',
+                'timerProgressBar' => true,
+                'timer' => 2000,
+            ];
+        }
         parent::init();
     }
 
@@ -130,10 +138,10 @@ class SweetAlert2 extends Widget
             $type = $this->getType(array_keys($flash)[0]);
             $message = $flash[$type];
             $session->removeAllFlashes();
-            return $message ? [
+            return $message ? array_merge([
                 'icon' => $type,
                 'title' => $message,
-            ] : false;
+            ], $this->options) : false;
         }
         return false;
     }
