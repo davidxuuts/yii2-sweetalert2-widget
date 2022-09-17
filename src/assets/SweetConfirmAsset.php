@@ -3,7 +3,6 @@
 namespace davidxu\sweetalert2\assets;
 
 use yii\web\AssetBundle;
-use yii\web\YiiAsset;
 
 /**
  * Class SweetConfirmAsset
@@ -14,7 +13,7 @@ class SweetConfirmAsset extends AssetBundle
     /**
      * @var string
      */
-    public $sourcePath = __DIR__ . '/../';
+    public $sourcePath = '@davidxu/sweetalert2/';
 
     /**
      * @var array
@@ -32,6 +31,6 @@ class SweetConfirmAsset extends AssetBundle
      * @var array
      */
     public $depends = [
-        YiiAsset::class,
+        SweetAlert2Asset::class,
     ];
 }

@@ -3,6 +3,7 @@
 namespace davidxu\sweetalert2\assets;
 
 use yii\web\AssetBundle;
+use yii\web\JqueryAsset;
 
 /**
  * Class SweetAlert2Asset
@@ -31,4 +32,11 @@ class SweetAlert2Asset extends AssetBundle
         $min = YII_ENV_DEV ? '' : '.min';
         $this->js[] = 'sweetalert2.all' . $min . '.js';
     }
+
+    /**
+     * @var array
+     */
+    public $depends = [
+        JqueryAsset::class,
+    ];
 }
